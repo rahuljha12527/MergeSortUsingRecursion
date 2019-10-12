@@ -1,0 +1,88 @@
+#include <iostream>
+using namespace std;
+
+void mergeSortss(int input[],int start,int mid,int end){
+  //  int mid=(start+end)/2;
+    
+    int i=0,j=0,k=start;
+    int n1=mid-start+1;
+    int n2=end-mid;
+    
+    int L[n1],R[n2];
+    for(int i=0;i<n1;i++){
+        L[i]=input[i+start];
+    }
+    
+    for(int j=0;j<n2;j++){
+        R[j]=input[j+mid+1];
+    }
+    
+    while(i<n1 && j<n2){
+        if(L[i]<=R[j]){
+            
+            input[k]=L[i];
+            i++;
+        }
+        
+        else{
+            input[k]=R[j];
+            j++;
+        }
+        
+        
+        k++;
+    }
+    
+    while(i<n1){
+        input[k]=L[i];
+        i++;
+        k++;
+    }
+    
+    while(j<n2){
+        input[k]=R[j];
+        j++;
+        k++;
+    }
+    
+}
+
+
+void mergeSorts(int input[],int start,int end){
+    
+    if(start>=end){
+        return;
+    }
+    
+   // if(start<end){
+    int mid=(start+end)/2;
+    mergeSorts(input,start,mid);
+    mergeSorts(input,mid+1,end);
+    
+    mergeSortss(input,start,mid,end);
+   // }
+}
+
+void mergeSort(int input[], int size){
+	// Write your code here
+//    int len=strlen(input);
+    
+    //if(size<=1){
+       // return;
+   // }
+    mergeSorts(input,0,size-1);
+   
+    
+}
+
+
+int main() {
+  int input[1000],length;
+  cin >> length;
+  for(int i=0; i < length; i++)
+    cin >> input[i];
+  mergeSort(input, length);
+  for(int i = 0; i < length; i++) {
+    cout << input[i] << " ";
+  }
+}
